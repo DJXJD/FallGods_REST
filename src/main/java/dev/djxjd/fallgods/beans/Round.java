@@ -59,6 +59,9 @@ public class Round extends DBEntity<Round> {
 	@ManyToOne
 	private Match match;
 	
+	@ManyToOne
+	private Player mvp;
+	
 	@Transient
 	private Byte num;
 	@Transient

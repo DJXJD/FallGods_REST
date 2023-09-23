@@ -16,6 +16,8 @@ public interface RoundRepository extends DBEntityRepository<Round> {
 	public List<Round> findAllByPlayersFinishedNotNull();
 	@Query("SELECT r FROM Round r WHERE KEY(r.playersFinished) = ?1")
 	public List<Round> findAllByPlayersFinishedContaining(Player player);
+	public List<Round> findAllByMvp(Player mvp);
+	public List<Round> findAllByMvpNotNull();
 	public List<Round> findAllByGameModeNotNull();
 	public List<Round> findAllByGameMode(Minigame minigame);
 

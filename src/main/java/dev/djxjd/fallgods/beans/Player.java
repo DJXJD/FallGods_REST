@@ -1,5 +1,6 @@
 package dev.djxjd.fallgods.beans;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,5 +46,11 @@ public class Player extends DBEntity<Player> {
 	@JsonIgnore
 	@ToString.Exclude
 	private Set<Match> matches;
+	
+	@OneToMany(mappedBy = "mvp")
+	@Singular
+	@JsonIgnore
+	@ToString.Exclude
+	private List<Round> mvpRounds; 
 	
 }

@@ -62,15 +62,19 @@ public class BootstrapDevData implements CommandLineRunner {
 				.match(Match.builder().id(1l).build())
 				.gameMode(Minigame.builder().id(1l).build())
 //				.teamQualified(false)
+				.mvp(Player.builder().id(3l).build())
 				.build());
 		
 		mRepo.save(Match.builder()
 				.session(GameSession.builder().id(1l).build())
+				.player(Player.builder().id(1l).build())
+				.player(Player.builder().id(3l).build())
 				.build());
 		
 		rRepo.save(Round.builder()
 				.match(Match.builder().id(2l).build())
 				.gameMode(Minigame.builder().id(1l).build())
+				.mvp(Player.builder().id(1l).build())
 				.build());
 		
 		mRepo.save(Match.builder()

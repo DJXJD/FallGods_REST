@@ -1,12 +1,14 @@
 package dev.djxjd.fallgods.services;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
 import dev.djxjd.fallgods.beans.DBEntity;
 import dev.djxjd.fallgods.beans.Match;
 import dev.djxjd.fallgods.beans.Player;
+import dev.djxjd.fallgods.repositories.GameSessionRepository;
 import dev.djxjd.fallgods.repositories.MatchRepository;
 import dev.djxjd.fallgods.repositories.PlayerRepository;
 import dev.djxjd.fallgods.repositories.RoundRepository;
@@ -16,12 +18,15 @@ public class PlayerServiceImpl extends DBEntityServiceImpl<Player> implements Pl
 
 	private MatchRepository mRepo;
 	private RoundRepository rRepo;
+	private GameSessionRepository gsRepo;
 	
-	public PlayerServiceImpl(PlayerRepository tRepo, MatchRepository mRepo, RoundRepository rRepo,
-			DBEntityService<Match> mService, RoundService rService) {
-		super(tRepo, List.of(mService, rService));
+	public PlayerServiceImpl(PlayerRepository tRepo,
+			MatchRepository mRepo, RoundRepository rRepo, GameSessionRepository gsRepo,
+			DBEntityService<Match> mService, RoundService rService, GameSessionService gsService) {
+		super(tRepo, List.of(mService, rService, gsService));
 		this.mRepo = mRepo;
 		this.rRepo = rRepo;
+		this.gsRepo = gsRepo;
 	}
 	
 	@Override
@@ -29,15 +34,20 @@ public class PlayerServiceImpl extends DBEntityServiceImpl<Player> implements Pl
 		Player p = Player.builder().id(id).build();
 		return List.of(
 				mRepo.findAllByPlayersContaining(p).stream().map(m -> { m.getPlayers().remove(p); return m; }).toList(),
-				rRepo.findAllByPlayersFinishedContaining(p).stream().map(r -> { r.getPlayersFinished().remove(p); return r; }).toList()
+				Stream.concat(rRepo.findAllByPlayersFinishedContaining(p).stream().map(r -> { r.getPlayersFinished().remove(p); return r; }),
+						rRepo.findAllByMvp(p).stream().map(r -> r.setMvp(null))).distinct().toList(),
+				gsRepo.findAllByMainPlayersContaining(p).stream().map(gs -> { gs.getMainPlayers().remove(p); return gs; }).toList()
 				);
 	}
+	
 
 	@Override
 	protected List<List<? extends DBEntity<?>>> detachChildrenReferencingCollection() {
 		return List.of(
 				mRepo.findAllByPlayersNotEmpty().stream().map(m -> m.setPlayers(null)).toList(),
-				rRepo.findAllByPlayersFinishedNotNull().stream().map(r -> r.setPlayersFinished(null)).toList()
+				Stream.concat(rRepo.findAllByPlayersFinishedNotNull().stream().map(r -> r.setPlayersFinished(null)),
+						rRepo.findAllByMvpNotNull().stream().map(r -> r.setMvp(null))).distinct().toList(),
+				gsRepo.findAllByMainPlayersNotEmpty().stream().map(gs -> gs.setMainPlayers(null)).toList()
 				);
 	}
 

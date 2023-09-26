@@ -26,17 +26,20 @@ public abstract class DBEntityServiceImpl<T extends DBEntity<T>> implements DBEn
 
 	@Override
 	public Long addElement(T t) {
+		if (catchGarbageData(t)) return null;
 		return tRepo.save(t.setId(null)).getId();
 	}
 
 	@Override
 	public Long replaceElement(T t) {
+		if (catchGarbageData(t)) return null;
 		if (!tRepo.existsById(t.getId())) return null;
 		return tRepo.save(t).getId();
 	}
 
 	@Override
 	public List<Long> replaceCollection(List<T> ts, boolean cascade) {
+		if (catchGarbageData(ts)) return null;
 		ts.forEach(t -> t.setId(null));
 		deleteCollection(cascade);
 		return tRepo.saveAll(ts).stream().map(t -> t.getId()).toList();
@@ -74,5 +77,15 @@ public abstract class DBEntityServiceImpl<T extends DBEntity<T>> implements DBEn
 	protected List<List<? extends DBEntity<?>>> detachChildrenReferencingCollection() {
 		return null;
 	}
+	
+	protected boolean catchGarbageData(T t) {
+		return false;
+	}
+	
+	private boolean catchGarbageData(List<T> ts) {
+		return ts.stream().map(this::catchGarbageData).anyMatch(b->b == true);
+	}
+	
+	
 
 }

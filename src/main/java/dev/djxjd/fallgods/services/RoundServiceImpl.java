@@ -8,13 +8,17 @@ import org.springframework.stereotype.Service;
 
 import dev.djxjd.fallgods.beans.Player;
 import dev.djxjd.fallgods.beans.Round;
+import dev.djxjd.fallgods.repositories.MatchRepository;
 import dev.djxjd.fallgods.repositories.RoundRepository;
 
 @Service
 public class RoundServiceImpl extends DBEntityServiceImpl<Round> implements RoundService {
 
-	public RoundServiceImpl(RoundRepository tRepo) {
+	private MatchRepository mRepo;
+	
+	public RoundServiceImpl(RoundRepository tRepo, MatchRepository mRepo) { 
 		super(tRepo, List.of());
+		this.mRepo = mRepo;
 	}
 
 	@Override
@@ -32,6 +36,11 @@ public class RoundServiceImpl extends DBEntityServiceImpl<Round> implements Roun
 		Boolean removed = r.get().getPlayersFinished().remove(Player.builder().id(playerId).build());
 		getTRepo().save(r.get());
 		return removed != null;
+	}	
+	
+	@Override
+	public boolean catchGarbageData(Round round) {
+		return mRepo.findById(round.getMatch().getId()).get().getPlayers().contains(round.getMvp()) && round.getMvp() != null; 
 	}
 
 }

@@ -38,6 +38,6 @@ public class RoundController extends DBEntityController<Round> {
 	@DeleteMapping({ "/{id}/playersFinished/{pId}", "/{id}/playersFinished/{pId}/" })
 	public Boolean removePlayerFinished(@PathVariable Long id, @PathVariable Long pId) {
 		return ((RoundService) getTService()).removePlayerFinished(id, pId);
-	}
-
+	}	
+	
 }

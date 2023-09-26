@@ -40,7 +40,7 @@ public class RoundServiceImpl extends DBEntityServiceImpl<Round> implements Roun
 	
 	@Override
 	public boolean catchGarbageData(Round round) {
-		return mRepo.findById(round.getMatch().getId()).get().getPlayers().contains(round.getMvp()) && round.getMvp() != null; 
+		return !mRepo.findById(round.getMatch().getId()).get().getPlayers().contains(round.getMvp()) && round.getMvp() != null; 
 	}
 
 }

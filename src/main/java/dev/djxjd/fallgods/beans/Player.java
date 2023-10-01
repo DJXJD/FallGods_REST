@@ -51,6 +51,6 @@ public class Player extends DBEntity<Player> {
 	@Singular
 	@JsonIgnore
 	@ToString.Exclude
-	private List<Round> mvpRounds; 
+	private List<Round> mvpRounds;
 	
 }

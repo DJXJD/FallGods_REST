@@ -22,13 +22,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Accessors(chain = true)
-@ToString(callSuper = true)
+@ToString
 @NoArgsConstructor
 @SuperBuilder
 @Entity

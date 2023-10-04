@@ -6,8 +6,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import dev.djxjd.fallgods.services.listeners.GameSessionListener;
 import jakarta.persistence.Entity;
@@ -71,5 +71,11 @@ public class GameSession extends DBEntity<GameSession> {
 	private Long lastStreakContinuedSessionId;
 	@Transient
 	private Duration duration;
-
+	
+	@Override
+	public GameSession unproxy() {
+		if (matches != null) matches.forEach(Match::unproxy);
+		return this;
+	}
+	
 }

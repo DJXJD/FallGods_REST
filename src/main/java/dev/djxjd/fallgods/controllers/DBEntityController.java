@@ -28,12 +28,12 @@ public abstract class DBEntityController<T extends DBEntity<T>> {
 
 	@GetMapping({ "/{id}", "/{id}/" })
 	public T getElement(@PathVariable Long id) {
-		return unproxyLazyFields(tService.getElement(id));
+		return tService.getElement(id).unproxy();
 	}
 
 	@GetMapping({ "", "/" })
 	public List<T> getCollection() {
-		return unproxyLazyFields(tService.getCollection());
+		return tService.getCollection().stream().map(T::unproxy).toList();
 	}
 
 	@PostMapping(value = { "", "/" }, consumes = "application/json")
@@ -62,14 +62,6 @@ public abstract class DBEntityController<T extends DBEntity<T>> {
 	public void deleteCollection(@RequestParam(required = false) Boolean cascade) {
 		if (cascade == null) cascade = defaultCascade;
 		tService.deleteCollection(cascade);
-	}
-	
-	protected T unproxyLazyFields(T t) {
-		return t;
-	}
-	
-	protected List<T> unproxyLazyFields(List<T> ts) {
-		return ts.stream().map(this::unproxyLazyFields).toList();
 	}
 
 }

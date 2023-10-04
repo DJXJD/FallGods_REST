@@ -42,5 +42,10 @@ public abstract class DBEntity<T extends DBEntity<T>> {
 		T other = (T) obj;
 		return id != null && id.equals(other.getId());
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T unproxy() {
+		return (T) this;
+	}
 
 }

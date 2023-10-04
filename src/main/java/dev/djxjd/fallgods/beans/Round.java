@@ -69,4 +69,10 @@ public class Round extends DBEntity<Round> {
 	@Transient
 	private boolean finalRound;
 	
+	@Override
+	public Round unproxy() {
+		if (match != null) match.unproxy();
+		return this;
+	}
+	
 }

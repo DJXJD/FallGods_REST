@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -69,5 +71,11 @@ public class Match extends DBEntity<Match> {
 	private boolean won;
 	@Transient
 	private Duration duration;
+	
+	@Override
+	public Match unproxy() {
+		if (session != null) session = (GameSession) Hibernate.unproxy(session);
+		return this;
+	}
 
 }

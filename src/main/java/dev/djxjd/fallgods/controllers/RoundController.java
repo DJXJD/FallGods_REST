@@ -2,7 +2,6 @@ package dev.djxjd.fallgods.controllers;
 
 import java.util.Map;
 
-import org.hibernate.Hibernate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.djxjd.fallgods.beans.GameSession;
 import dev.djxjd.fallgods.beans.Player;
 import dev.djxjd.fallgods.beans.Round;
 import dev.djxjd.fallgods.services.RoundService;
@@ -21,13 +19,6 @@ public class RoundController extends DBEntityController<Round> {
 
 	public RoundController(RoundService tService) {
 		super(tService);
-	}
-	
-	@Override
-	protected Round unproxyLazyFields(Round t) {
-		if (t == null || t.getMatch() == null) return t;
-		t.getMatch().setSession((GameSession) Hibernate.unproxy(t.getMatch().getSession()));
-		return t;
 	}
 
 	@PutMapping(value = { "/{id}/playersFinished/{pId}", "/{id}/playersFinished/{pId}/" }, consumes = "application/json")

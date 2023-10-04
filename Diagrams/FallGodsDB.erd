@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="FallGodsDB.erd">
+	<entities>
+		<data-source id="mariaDB-18af6da1811-5869d726b39d896e">
+			<entity id="1" name="game_session" fq-name="FallGodsData.game_session" order="0" font="Segoe UI:9:0" x="665" y="314">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="2" name="game_session_main_players" fq-name="FallGodsData.game_session_main_players" order="1" font="Segoe UI:9:0" x="216" y="365">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="3" name="match" fq-name="FallGodsData.`match`" order="2" font="Segoe UI:9:0" x="455" y="174">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="4" name="match_players" fq-name="FallGodsData.match_players" order="3" font="Segoe UI:9:0" x="216" y="240">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="5" name="minigame" fq-name="FallGodsData.minigame" order="4" font="Segoe UI:9:0" x="455" y="51">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="6" name="player" fq-name="FallGodsData.player" order="5" font="Segoe UI:9:0" x="455" y="297">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="7" name="round" fq-name="FallGodsData.round" order="6" font="Segoe UI:9:0" x="216" y="20">
+				<path name="FallGodsData"/>
+			</entity>
+			<entity id="8" name="round_players_finished" fq-name="FallGodsData.round_players_finished" order="7" font="Segoe UI:9:0" x="20" y="288">
+				<path name="FallGodsData"/>
+			</entity>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="FKfw6g252l5mm9d1w3k9a628w4m" fq-name="FallGodsData.game_session_main_players.FKfw6g252l5mm9d1w3k9a628w4m" type="fk" pk-ref="1" fk-ref="2"/>
+		<relation name="FKeus3g1ox5a9xgoapvt4p904kr" fq-name="FallGodsData.`match`.FKeus3g1ox5a9xgoapvt4p904kr" type="fk" pk-ref="1" fk-ref="3"/>
+		<relation name="FKo24omxcjeoook2hv1wthjdioc" fq-name="FallGodsData.match_players.FKo24omxcjeoook2hv1wthjdioc" type="fk" pk-ref="3" fk-ref="4"/>
+		<relation name="FKo5i0jfxjlsdit8cmjjwn3s53r" fq-name="FallGodsData.round.FKo5i0jfxjlsdit8cmjjwn3s53r" type="fk" pk-ref="3" fk-ref="7"/>
+		<relation name="FK50qugoeavneo8ojr4xxujgh1q" fq-name="FallGodsData.round.FK50qugoeavneo8ojr4xxujgh1q" type="fk" pk-ref="5" fk-ref="7"/>
+		<relation name="FKqdlmcsqg1bb2cba3nesjpppol" fq-name="FallGodsData.game_session_main_players.FKqdlmcsqg1bb2cba3nesjpppol" type="fk" pk-ref="6" fk-ref="2"/>
+		<relation name="FKlc9jxs59l0s3joypvlwmgq80a" fq-name="FallGodsData.match_players.FKlc9jxs59l0s3joypvlwmgq80a" type="fk" pk-ref="6" fk-ref="4"/>
+		<relation name="FKb1e84j528p4ovlct3jv2hnfy1" fq-name="FallGodsData.round.FKb1e84j528p4ovlct3jv2hnfy1" type="fk" pk-ref="6" fk-ref="7"/>
+		<relation name="FK9vvixu7kwx3xquj8ju85x8se1" fq-name="FallGodsData.round_players_finished.FK9vvixu7kwx3xquj8ju85x8se1" type="fk" pk-ref="6" fk-ref="8"/>
+		<relation name="FK23poheq62tiyj5cnssr7i8gte" fq-name="FallGodsData.round_players_finished.FK23poheq62tiyj5cnssr7i8gte" type="fk" pk-ref="7" fk-ref="8"/>
+	</relations>
+</diagram>

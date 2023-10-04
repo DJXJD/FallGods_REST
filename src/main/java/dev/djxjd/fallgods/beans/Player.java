@@ -1,6 +1,5 @@
 package dev.djxjd.fallgods.beans;
 
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -39,7 +38,7 @@ public class Player extends DBEntity<Player> {
 	@Singular
 	@JsonIgnore
 	@ToString.Exclude
-	private Set<GameSession> sessions;
+	private Set<GameSession> mainPlayerSessions;
 	
 	@ManyToMany(mappedBy = "players")
 	@Singular
@@ -51,6 +50,6 @@ public class Player extends DBEntity<Player> {
 	@Singular
 	@JsonIgnore
 	@ToString.Exclude
-	private List<Round> mvpRounds;
+	private Set<Round> mvpRounds;
 	
 }

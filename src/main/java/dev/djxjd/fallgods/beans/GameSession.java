@@ -6,8 +6,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import dev.djxjd.fallgods.services.listeners.GameSessionListener;
 import jakarta.persistence.Entity;
@@ -21,13 +21,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Accessors(chain = true)
-@ToString(callSuper = true)
+@ToString
 @NoArgsConstructor
 @SuperBuilder
 @Entity
@@ -71,5 +69,11 @@ public class GameSession extends DBEntity<GameSession> {
 	private Long lastStreakContinuedSessionId;
 	@Transient
 	private Duration duration;
-
+	
+	@Override
+	public GameSession unproxy() {
+		if (matches != null) matches.forEach(Match::unproxy);
+		return this;
+	}
+	
 }

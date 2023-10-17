@@ -20,16 +20,9 @@ public class GameSessionController extends DBEntityController<GameSession> {
 		super(tService);
 	}
 	
-	@Override
-	protected GameSession unproxyLazyFields(GameSession t) {
-		if (t == null) return t;
-		t.getMatches().forEach(m -> m.setSession((GameSession) Hibernate.unproxy(m.getSession())));
-		return t;
-	}
-	
 	@PostMapping(value = {"/latest", "/latest/"}, consumes = "application/json")
 	public GameSession getLatestWithMainPlayers(@RequestBody Set<Player> mainPlayers) {
-		return (GameSession) Hibernate.unproxy(unproxyLazyFields(((GameSessionService) getTService()).getLatestWithMainPlayers(mainPlayers)));
+		return (GameSession) Hibernate.unproxy(((GameSessionService) getTService()).getLatestWithMainPlayers(mainPlayers));
 	}
 
 }

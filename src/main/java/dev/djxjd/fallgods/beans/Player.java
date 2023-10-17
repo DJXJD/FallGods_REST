@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import dev.djxjd.fallgods.beans.wrappers.MinigameData;
@@ -58,6 +60,7 @@ public class Player extends DBEntity<Player> {
 	
 	@Transient
 	@Singular("mapData")
+	@JsonProperty(access = Access.READ_ONLY)
 	private Map<Minigame, MinigameData> mapData;
 	
 }

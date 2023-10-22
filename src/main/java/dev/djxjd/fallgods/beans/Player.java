@@ -63,4 +63,8 @@ public class Player extends DBEntity<Player> {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Map<Minigame, MinigameData> mapData;
 	
+	@Transient
+	@JsonProperty(access = Access.READ_ONLY)
+	private MinigameData aggMapData;
+	
 }

@@ -1,5 +1,6 @@
 package dev.djxjd.fallgods.beans;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.Set;
 
@@ -66,5 +67,20 @@ public class Player extends DBEntity<Player> {
 	@Transient
 	@JsonProperty(access = Access.READ_ONLY)
 	private MinigameData aggMapData;
+	
+	@Transient
+	private int numMainPlayerSessions;
+	@Transient
+	private int numMatches;
+	@Transient
+	private int wins;
+	@Transient
+	private float winRate;
+	@Transient
+	private int losses;
+	@Transient
+	private float lossRate;
+	@Transient
+	private Duration inGameTime;
 	
 }

@@ -47,7 +47,7 @@ public class Round extends DBEntity<Round> {
 	@Singular("playerFinished")
 	@ToString.Exclude
 	@JsonProperty(access = Access.READ_ONLY)
-	private Map<Player, Boolean> playersFinished; // ensure null values work (mostly client side stuff)
+	private Map<Player, Boolean> playersFinished;
 	
 	private boolean earlyFinalRound;
 	private String notes;
@@ -63,7 +63,8 @@ public class Round extends DBEntity<Round> {
 	@Transient
 	private Byte num;
 	@Transient
-	private Duration duration;
+	@Builder.Default
+	private Duration duration = Duration.ZERO;
 	@Transient
 	private boolean finalRound;
 	

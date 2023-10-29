@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -72,7 +73,12 @@ public class Match extends DBEntity<Match> {
 	
 	@Override
 	public Match unproxy() {
-		if (session != null) session = (GameSession) Hibernate.unproxy(session);
+		if (session != null) {
+			session = (GameSession) Hibernate.unproxy(session);
+			session.getMatches().stream()
+			.filter(m -> m.getSession() instanceof HibernateProxy)
+			.forEach(Match::unproxy);
+		}
 		return this;
 	}
 

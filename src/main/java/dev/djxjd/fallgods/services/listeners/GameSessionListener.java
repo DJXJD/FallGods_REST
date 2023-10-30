@@ -23,6 +23,7 @@ public class GameSessionListener {
 		GameSessionService gsService = gsServiceFactory.getObject();
 		gs.setStreaks(new ArrayList<List<Match>>());
 		deriveWinsLossesStreaks(gs);
+		gs.setWinRate((float) gs.getWins() / (gs.getWins() + gs.getLosses()) * 100);
 		deriveCurrentStreakHighestStreak(gs);
 		continuePriorStreak(gs, gsService);
 		checkLastStreakContinuing(gs, gsService);

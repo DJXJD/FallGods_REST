@@ -17,7 +17,7 @@ public class MatchListener {
 		
 		Round lastRound = m.getRounds().get(m.getRounds().size() - 1);
 		
-		m.setFinished(lastRound.isFinalRound() || !lastRound.getTeamQualified());
+		m.setFinished(lastRound.isFinalRound());
 		
 		m.setDuration(Duration.between(m.getStartDateTime(), lastRound.getEndDateTime()));
 		

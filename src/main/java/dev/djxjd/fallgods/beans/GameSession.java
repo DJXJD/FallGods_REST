@@ -56,6 +56,8 @@ public class GameSession extends DBEntity<GameSession> {
 	@Transient
 	private int losses;
 	@Transient
+	private float winRate;
+	@Transient
 	private List<List<Match>> streaks;
 	@Transient
 	private int currentStreak;

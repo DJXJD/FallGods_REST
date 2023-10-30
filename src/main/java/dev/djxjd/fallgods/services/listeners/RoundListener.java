@@ -21,7 +21,7 @@ public class RoundListener {
 		r.setFinalRound(r.isEarlyFinalRound());
 		
 		if (r.getGameMode() == null) return;
-		if (!r.isEarlyFinalRound()) r.setFinalRound(r.getGameMode().getType().equals(GameType.FINAL));
+		if (!r.isEarlyFinalRound()) r.setFinalRound(r.getGameMode().getType().equals(GameType.FINAL) || !r.getTeamQualified());
 	}
 
 }

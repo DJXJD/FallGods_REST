@@ -79,6 +79,8 @@ public class GameSessionListener {
 			GameSession prevSession = gsService.getPreviousSameMainPlayers(gs.getId());
 			if (prevSession == null || !prevSession.isFinished() ||
 					!prevSession.getMatches().get(prevSession.getMatches().size() - 1).isWon()) return;
+			// this seems to sometimes happen on its own, so in those cases this might waste performance
+			updateTransientData(prevSession);
 			gs.setPriorStreakSessionId(prevSession.getId());
 			gs.setPriorStreakSize(prevSession.getCurrentStreak());
 			if (gs.getLosses() == 0) {

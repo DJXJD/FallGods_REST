@@ -83,7 +83,7 @@ public abstract class DBEntityServiceImpl<T extends DBEntity<T>> implements DBEn
 	}
 	
 	private boolean catchGarbageData(List<T> ts) {
-		return ts.stream().map(this::catchGarbageData).anyMatch(b->b == true);
+		return ts.stream().map(this::catchGarbageData).anyMatch(b -> b);
 	}
 	
 	

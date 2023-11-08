@@ -57,9 +57,9 @@ public class GameSessionServiceImpl extends DBEntityServiceImpl<GameSession> imp
 
 	@Override
 	public GameSession getLatestWithMainPlayers(Set<Player> mainPlayers) {
-		return mRepo.findAllByRecencyWithSession().stream()
-				.map(Match::getSession).filter(s -> s.getMainPlayers().equals(mainPlayers))
-				.findFirst().map(GameSession::unproxy).orElse(null);
+		return getTRepo().findAll().stream()
+				.filter(gs -> gs.getMainPlayers().equals(mainPlayers))
+				.sorted().findFirst().orElse(null);
 	}
 
 }

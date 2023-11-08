@@ -83,4 +83,9 @@ public class Player extends DBEntity<Player> {
 	@Transient
 	private Duration inGameTime;
 	
+	@Override
+	public int compareTo(Player o) {
+		return name.compareTo(o.name);
+	}
+	
 }

@@ -11,9 +11,9 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString
 @NoArgsConstructor
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @MappedSuperclass
-public abstract class DBEntity<T extends DBEntity<T>> {
+public abstract class DBEntity<T extends DBEntity<T>> implements Comparable<T> {
 	
 	@Id
 	@GeneratedValue
@@ -46,6 +46,11 @@ public abstract class DBEntity<T extends DBEntity<T>> {
 	@SuppressWarnings("unchecked")
 	public T unproxy() {
 		return (T) this;
+	}
+
+	@Override
+	public int compareTo(T o) {
+		return id.compareTo(o.getId());
 	}
 
 }

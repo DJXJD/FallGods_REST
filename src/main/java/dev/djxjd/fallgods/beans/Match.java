@@ -82,4 +82,9 @@ public class Match extends DBEntity<Match> {
 		return this;
 	}
 
+	@Override
+	public int compareTo(Match o) {
+		return startDateTime.compareTo(o.startDateTime) * -1;
+	}
+
 }

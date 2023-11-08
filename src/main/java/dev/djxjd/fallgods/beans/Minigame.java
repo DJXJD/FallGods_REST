@@ -46,4 +46,10 @@ public class Minigame extends DBEntity<Minigame> {
 		RACE
 	}
 	
+	@Override
+	public int compareTo(Minigame o) {
+		if (!type.equals(o.type)) return type.compareTo(o.type);
+		else return name.compareTo(o.name);
+	}
+	
 }

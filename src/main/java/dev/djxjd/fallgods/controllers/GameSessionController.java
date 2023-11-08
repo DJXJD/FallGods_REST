@@ -2,7 +2,6 @@ package dev.djxjd.fallgods.controllers;
 
 import java.util.Set;
 
-import org.hibernate.Hibernate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class GameSessionController extends DBEntityController<GameSession> {
 	
 	@PostMapping(value = {"/latest", "/latest/"}, consumes = "application/json")
 	public GameSession getLatestWithMainPlayers(@RequestBody Set<Player> mainPlayers) {
-		return (GameSession) Hibernate.unproxy(((GameSessionService) getTService()).getLatestWithMainPlayers(mainPlayers));
+		return ((GameSessionService) getTService()).getLatestWithMainPlayers(mainPlayers);
 	}
 
 }

@@ -59,7 +59,7 @@ public class GameSessionServiceImpl extends DBEntityServiceImpl<GameSession> imp
 	public GameSession getLatestWithMainPlayers(Set<Player> mainPlayers) {
 		return getTRepo().findAll().stream()
 				.filter(gs -> gs.getMainPlayers().equals(mainPlayers))
-				.sorted().findFirst().orElse(null);
+				.sorted().findFirst().map(GameSession::unproxy).orElse(null);
 	}
 
 }

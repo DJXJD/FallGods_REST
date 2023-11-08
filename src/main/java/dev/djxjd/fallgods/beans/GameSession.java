@@ -27,7 +27,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @ToString
 @NoArgsConstructor
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @Entity
 @EntityListeners(GameSessionListener.class)
 @JsonIdentityInfo(

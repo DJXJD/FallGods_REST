@@ -33,7 +33,7 @@ public abstract class DBEntityController<T extends DBEntity<T>> {
 
 	@GetMapping({ "", "/" })
 	public List<T> getCollection() {
-		return tService.getCollection().stream().map(T::unproxy).toList();
+		return tService.getCollection().stream().map(T::unproxy).sorted().toList();
 	}
 
 	@PostMapping(value = { "", "/" }, consumes = "application/json")

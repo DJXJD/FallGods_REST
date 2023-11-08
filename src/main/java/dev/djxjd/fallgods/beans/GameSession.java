@@ -77,5 +77,11 @@ public class GameSession extends DBEntity<GameSession> {
 		if (matches != null) matches.forEach(Match::unproxy);
 		return this;
 	}
+
+	@Override
+	public int compareTo(GameSession o) {
+		if (matches == null || matches.isEmpty()) return -1;
+		return matches.get(0).compareTo(o.matches.get(0));
+	}
 	
 }

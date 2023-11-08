@@ -73,5 +73,10 @@ public class Round extends DBEntity<Round> {
 		if (match != null) match.unproxy();
 		return this;
 	}
+
+	@Override
+	public int compareTo(Round o) {
+		return endDateTime.compareTo(o.endDateTime) * -1;
+	}
 	
 }

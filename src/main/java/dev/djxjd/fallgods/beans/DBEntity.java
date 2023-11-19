@@ -1,8 +1,11 @@
 package dev.djxjd.fallgods.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -11,17 +14,26 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString
 @NoArgsConstructor
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @MappedSuperclass
-public abstract class DBEntity<T extends DBEntity<T>> {
+@SuppressWarnings("unchecked")
+public abstract class DBEntity<T extends DBEntity<T>> implements Comparable<T> {
 	
 	@Id
 	@GeneratedValue
 	private Long id;
 	
-	@SuppressWarnings("unchecked")
+	@JsonIgnore
+	@Transient
+	private boolean transientFieldsDerived;
+	
 	public T setId(Long id) {
 		this.id = id;
+		return (T) this;
+	}
+	
+	public T setTransientFieldsDerived(boolean transientFieldsDerived) {
+		this.transientFieldsDerived = transientFieldsDerived;
 		return (T) this;
 	}
 
@@ -38,14 +50,17 @@ public abstract class DBEntity<T extends DBEntity<T>> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		@SuppressWarnings("unchecked")
 		T other = (T) obj;
 		return id != null && id.equals(other.getId());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public T unproxy() {
 		return (T) this;
+	}
+
+	@Override
+	public int compareTo(T o) {
+		return id.compareTo(o.getId());
 	}
 
 }

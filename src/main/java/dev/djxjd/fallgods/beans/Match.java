@@ -13,9 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import dev.djxjd.fallgods.services.listeners.MatchListener;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
@@ -38,7 +36,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Entity
 @Table(name = "`match`")
-@EntityListeners(MatchListener.class)
 @JsonIdentityInfo(
 		scope = Match.class,
 		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -80,6 +77,11 @@ public class Match extends DBEntity<Match> {
 			.forEach(Match::unproxy);
 		}
 		return this;
+	}
+
+	@Override
+	public int compareTo(Match o) {
+		return startDateTime.compareTo(o.startDateTime) * -1;
 	}
 
 }

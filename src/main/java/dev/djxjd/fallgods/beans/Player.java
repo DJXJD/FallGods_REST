@@ -11,10 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import dev.djxjd.fallgods.beans.wrappers.MinigameData;
-import dev.djxjd.fallgods.services.listeners.PlayerListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
@@ -31,7 +29,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@EntityListeners(PlayerListener.class)
 @JsonIdentityInfo(
 		scope = Player.class,
 		generator = ObjectIdGenerators.PropertyGenerator.class,

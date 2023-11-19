@@ -9,10 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import dev.djxjd.fallgods.services.listeners.RoundListener;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKeyJoinColumn;
 import jakarta.persistence.Transient;
@@ -30,7 +28,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@EntityListeners(RoundListener.class)
 @JsonIdentityInfo(
 		scope = Round.class,
 		generator = ObjectIdGenerators.PropertyGenerator.class,

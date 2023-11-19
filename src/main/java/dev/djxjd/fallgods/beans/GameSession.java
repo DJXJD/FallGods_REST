@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import dev.djxjd.fallgods.services.listeners.GameSessionListener;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
@@ -29,7 +27,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Entity
-@EntityListeners(GameSessionListener.class)
 @JsonIdentityInfo(
 		scope = GameSession.class,
 		generator = ObjectIdGenerators.PropertyGenerator.class,

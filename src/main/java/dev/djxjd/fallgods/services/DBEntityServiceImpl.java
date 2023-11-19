@@ -16,12 +16,12 @@ public abstract class DBEntityServiceImpl<T extends DBEntity<T>> implements DBEn
 
 	@Override
 	public T getElement(Long id) {
-		return tRepo.findById(id).orElse(null);
+		return tRepo.findById(id).map(this::deriveTransientFields).orElse(null);
 	}
 
 	@Override
 	public List<T> getCollection() {
-		return tRepo.findAll();
+		return tRepo.findAll().stream().map(this::deriveTransientFields).toList();
 	}
 
 	@Override
@@ -86,6 +86,9 @@ public abstract class DBEntityServiceImpl<T extends DBEntity<T>> implements DBEn
 		return ts.stream().map(this::catchGarbageData).anyMatch(b -> b);
 	}
 	
+	@Override
+	public T deriveTransientFields(T t) {
+		return t.setTransientFieldsDerived(true);
+	}
 	
-
 }

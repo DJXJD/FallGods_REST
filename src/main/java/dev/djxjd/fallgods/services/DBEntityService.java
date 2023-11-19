@@ -13,5 +13,7 @@ public interface DBEntityService<T extends DBEntity<T>> {
 	public List<Long> replaceCollection(List<T> ts, boolean cascade);
 	public Boolean deleteElement(Long id, boolean cascade);
 	public void deleteCollection(boolean cascade);
+	
+	public T deriveTransientFields(T t);
 
 }
